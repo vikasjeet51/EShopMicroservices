@@ -24,11 +24,14 @@ builder.Services.AddMarten(options =>
 builder.Services.AddCarter();
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
+builder.Services.AddHealthChecks();
 var app = builder.Build();
 
 app.UseExceptionHandler(options => { });
 
 app.MapGet("/", () => "Hello World!");
+app.UseHealthChecks("/health");
 app.MapCarter();
 
 app.Run();
